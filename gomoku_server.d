@@ -88,7 +88,7 @@ class Board {
     IPlayer currentPlayer;
     IPlayer[] players;
     int size = 15;
-    static const int nWin = 3;
+    static const int nWin = 5;
     char[][] board;
 
     public:
