@@ -28,7 +28,7 @@ class AiPlayer : IPlayer {
     }
 
     Position readInput(Board board) {
-        Estimate estimate = board.minmax(board.board[][], 2, false);
+        Estimate estimate = board.minmax(board.board[][], 2, true);
         writeln("position ", estimate.position.i, estimate.position.j);
         writeln("value ", estimate.value);
         Position turn = estimate.position;
@@ -119,6 +119,12 @@ struct Pattern {
     int w;
 };
 
+// struct Pattern {
+//     string sX;
+//     string sO;
+//     int w;
+// };
+
 struct Direction {
     int n;
     int m;
@@ -152,7 +158,60 @@ class Board {
         Pattern("ss.s.", 800),
         Pattern("s.ss.", 800),
         Pattern(".ss.", 20),
+    //     // Pattern("OXXXX", 45000),
+    //     // Pattern("XXXXO", 45000),
+    //     // Pattern("XXOXX", 45000),
+    //     // Pattern("XXXOX", 45000),
+    //     // Pattern("XOXXX", 45000),
+    //     // Pattern(".XXXO.", 15000),
+    //     // Pattern(".OXXX.", 15000),
+    //     // Pattern(".XOXX.", 15000),
+    //     // Pattern(".XOXX.", 15000),
+    //     // Pattern(".XXOX.", 15000),
+    //     // Pattern(".XXOX.", 15000),
     ];
+
+    // Pattern[] patterns = [
+    //     Pattern(r"71111|17111|11711|11171|11117", r"72222|27222|22722|22272|22227", 99999),
+    //     Pattern(r"071110|017110|011710|011170", r"072220|027220|022720|022270", 7000),
+    //     Pattern(r"07111|01711|01171|01117", r"07222|02722|02272|02227", 4000),
+    //     Pattern(r"71110|17110|11710|11170", r"72220|27220|22720|22270", 4000),
+    //     Pattern(r"070111|010711|010171|010117", r"070222|020722|020272|020227", 2000),
+    //     Pattern(r"071011|017011|011071|011017", r"072022|027022|022072|022027", 2000),
+    //     Pattern(r"071101|017101|011701|011107", r"072202|027202|022702|022207", 2000),
+    //     Pattern(r"711010|171010|117010|111070", r"722020|272020|227020|222070", 2000),
+    //     Pattern(r"710110|170110|110710|110170", r"720220|270220|220720|220270", 2000),
+    //     Pattern(r"701110|107110|101710|101170", r"702220|207220|202720|202270", 2000),
+    //     Pattern(r"07110|01710|01170", r"07220|02720|02270", 3000),
+    //     Pattern(r"0711|0171|0117", r"0722|0272|0227", 1500),
+    //     Pattern(r"7110|1710|1170", r"7220|2720|2270", 1500),
+    //     Pattern(r"07101|01701|01107", r"07202|02702|02207", 800),
+    //     Pattern(r"07011|01071|01017", r"07022|02072|02027", 800),
+    //     Pattern(r"71010|17010|11070", r"72020|27020|22070", 800),
+    //     Pattern(r"70110|10710|10170", r"70220|20720|20270", 800),
+    //     Pattern(r"0710|0170", r"0720|0270", 200),
+    // ]
+
+    // Pattern[] patterns = [
+    //     Pattern(r"7XXXX|X7XXX|XX7XX|XXX7X|XXXX7", r"7OOOO|O7OOO|OO7OO|OOO7O|OOOO7", 99999),
+    //     Pattern(r".7XXX.|.X7XX.|.XX7X.|.XXX7.", r".7OOO.|.O7OO.|.OO7O.|.OOO7.", 7000),
+    //     Pattern(r".7XXX|.X7XX|.XX7X|.XXX7", r".7OOO|.O7OO|.OO7O|.OOO7", 4000),
+    //     Pattern(r"7XXX.|X7XX.|XX7X.|XXX7.", r"7OOO.|O7OO.|OO7O.|OOO7.", 4000),
+    //     Pattern(r".7.XXX|.X.7XX|.X.X7X|.X.XX7", r".7.OOO|.O.7OO|.O.O7O|.O.OO7", 2000),
+    //     Pattern(r".7X.XX|.X7.XX|.XX.7X|.XX.X7", r".7O.OO|.O7.OO|.OO.7O|.OO.O7", 2000),
+    //     Pattern(r".7XX.X|.X7X.X|.XX7.X|.XXX.7", r".7OO.O|.O7O.O|.OO7.O|.OOO.7", 2000),
+    //     Pattern(r"7XX.X.|X7X.X.|XX7.X.|XXX.7.", r"7OO.O.|O7O.O.|OO7.O.|OOO.7.", 2000),
+    //     Pattern(r"7X.XX.|X7.XX.|XX.7X.|XX.X7.", r"7O.OO.|O7.OO.|OO.7O.|OO.O7.", 2000),
+    //     Pattern(r"7.XXX.|X.7XX.|X.X7X.|X.XX7.", r"7.OOO.|O.7OO.|O.O7O.|O.OO7.", 2000),
+    //     Pattern(r".7XX.|.X7X.|.XX7.", r".7OO.|.O7O.|.OO7.", 3000),
+    //     Pattern(r".7XX|.X7X|.XX7", r".7OO|.O7O|.OO7", 1500),
+    //     Pattern(r"7XX.|X7X.|XX7.", r"7OO.|O7O.|OO7.", 1500),
+    //     Pattern(r".7X.X|.X7.X|.XX.7", r".7O.O|.O7.O|.OO.7", 800),
+    //     Pattern(r".7.XX|.X.7X|.X.X7", r".7.OO|.O.7O|.O.O7", 800),
+    //     Pattern(r"7X.X.|X7.X.|XX.7.", r"7O.O.|O7.O.|OO.7.", 800),
+    //     Pattern(r"7.XX.|X.7X.|X.X7.", r"7.OO.|O.7O.|O.O7.", 800),
+    //     Pattern(r".7X.|.X7.", r".7O.|.O7.", 200),
+    // ];
 
     public:
 
@@ -188,12 +247,14 @@ class Board {
         return res;
     }
 
-    double estimate(char[][] field, Position p, char mark) {
-        // writeln(p.i, p.j);
-        int max = 0;
+    double estimate(char[][] field, Position p, char myMark) {
+        char opponentMark = myMark == 'X' ? 'O' : 'X';
+
+        double max = 0;
         int length = to!int(field.length);
         foreach (Pattern pattern; patterns) {
-                string patternString = pattern.s.replace('s', mark);
+                string myPatternString = pattern.s.replace('s', myMark);
+                string opponentPatternString = pattern.s.replace('s', opponentMark);
                 int topDistance = p.i < 4 ? p.i : 4;
                 int iTop = p.i - topDistance;
                 int bottomDistance = length - 1 - p.i <= 4 ? length - 1 - p.i : 4;
@@ -202,11 +263,6 @@ class Board {
                 int jLeft = p.j - leftDistance;
                 int rightDistance = length - 1 - p.j <= 4 ? length - 1 - p.j : 4;
                 int jRight = p.j + rightDistance;
-
-                // writeln("leftDistance ", leftDistance);
-                // writeln("topDistance ", topDistance);
-                // writeln("rightDistance ", rightDistance);
-                // writeln("bottomDistance ", bottomDistance);
 
                 int leftTopDistance = min(leftDistance, topDistance);
                 int rightTopDistance = min(rightDistance, topDistance);
@@ -220,8 +276,11 @@ class Board {
                     c++;
                 }
                 string s = arrHorizontal.idup();
-                if (s.findSplit(patternString)[1] != "") {
-                    max = max + pattern.w;
+                if (bmatch(s, myPatternString)) {
+                    max = max + pattern.w * 1.1;
+                }
+                if (bmatch(s, opponentPatternString)) {
+                    max = max - pattern.w;
                 }
 
                 char[] arrVertical = new char[topDistance + 1 + bottomDistance];
@@ -231,8 +290,11 @@ class Board {
                     c++;
                 }
                 s = arrVertical.idup();
-                if (s.findSplit(patternString)[1] != "") {
-                    max = max + pattern.w;
+                if (bmatch(s, myPatternString)) {
+                    max = max + pattern.w * 1.1;
+                }
+                if (bmatch(s, opponentPatternString)) {
+                    max = max - pattern.w;
                 }
 
                 char[] arrLeftDiagonal = new char[leftTopDistance + 1 + rightBottomDistance];
@@ -242,8 +304,11 @@ class Board {
                     c++;
                 }
                 s = arrLeftDiagonal.idup();
-                if (s.findSplit(patternString)[1] != "") {
-                    max = max + pattern.w;
+                if (bmatch(s, myPatternString)) {
+                    max = max + pattern.w * 1.1;
+                }
+                if (bmatch(s, opponentPatternString)) {
+                    max = max - pattern.w;
                 }
 
                 char[] arrRightDiagonal = new char[rightTopDistance + 1 + leftBottomDistance];
@@ -253,14 +318,25 @@ class Board {
                     c++;
                 }
                 s = arrRightDiagonal.idup();
-                if (s.findSplit(patternString)[1] != "") {
-                    max = max + pattern.w;
+                if (bmatch(s, myPatternString)) {
+                    max = max + pattern.w * 1.1;
                 }
+                if (bmatch(s, opponentPatternString)) {
+                    max = max - pattern.w;
+                }
+
+
+                // if (bmatch(s, pattern.sO)) {
+                //     attack = attack + pattern.w;
+                // }
+                // if (bmatch(s, pattern.sX)) {
+                //     defence = defence + pattern.w;
+                // }
                 // hH iG  iI iH gH hI jI hG gF fE
 
         }
         return max;
-        // mark == 'O' ? max * 1.1 : max;
+        // attack * 1.1 + defence;
     }
 
     Estimate minmax(char[][] field, int depth, bool isMax) {
@@ -271,14 +347,14 @@ class Board {
 
         int length = to!int(field.length);
         if (turns.length == length * length) {
-            return *(new Estimate(new Position(length / 2, length / 2), best));
+            return Estimate(new Position(length / 2, length / 2), best);
         }
 
-        char curMark = isMax ? 'X' : 'O';
+        char curMark = isMax ? 'O' : 'X';
 
         foreach (p; turns) {
-            field[p.i][p.j] = curMark;
             double cur;
+            field[p.i][p.j] = curMark;
 
             if (depth == 1) {
                 cur = estimate(field, p, curMark);
@@ -288,8 +364,8 @@ class Board {
             }
 
             writeln("depth ", depth, " is max ", isMax, " current position ", p.i, " ", p.j, " current estimate ", cur);
-//  || !isMax && cur < best
-            if (isMax && cur > best || !isMax && cur < best) {
+
+            if ((isMax && cur > best) || (!isMax && cur < best)) {
                 best = cur;
                 counter = 0;
                 bestTurns = new Position[turns.length];
@@ -313,9 +389,10 @@ class Board {
 
     this(IPlayer player1, IPlayer player2) {
         this.board = new char[][](this.size, this.size);
-        for (int c = 0; c < this.size; c++)
-            for (int b = 0; b < this.size; b++)
-                this.board[c][b] = '.';
+        for (int i = 0; i < this.size; i++)
+            for (int j = 0; j < this.size; j++) {
+                this.board[i][j] = '.';
+            }
 
         this.players = [player1, player2];
         this.currentPlayer = player1;
